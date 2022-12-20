@@ -39,6 +39,16 @@ input {
     padding-left: 4px !important;
 }
 
+input[type=text] {
+    width: 130px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s eas-in-out;
+}
+
+input[type=text]:focus {
+    width: 60%;
+}
+
 h3 {
     font-family: 'Unbounded', cursive;
 }
@@ -51,5 +61,4 @@ h2 {
 button:hover {
     background-color: var(--red) !important;
 
-} 
-
+}
