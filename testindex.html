@@ -9,12 +9,17 @@
 </head>
 <body>
     <div id="map"></div>
+    <div id="sidebar">
+        <h2>Results</h2>
+        <ul id="places"></ul>
+        <button id="more">Load more results</button>
+    </div>
 </body>
 <script 
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </script>
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiUCdcx5b1mrgCunC1aTK6gC-tYGNTjWc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiUCdcx5b1mrgCunC1aTK6gC-tYGNTjWc&libraries=places&callback=initMap">
 </script>
 <script 
     src="./assets/js/google_maps_script.js">
