@@ -5,47 +5,76 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Beats & Eats</title>
 </head>
 
 <body>
     <header>
-        <img src="./assets/images/BeatsAndEats2.png" alt="Beats & Eats Logo" />
-        <h1>Beats & Eats</h1>
+        <div class="flex flex-wrap place-items-center">
+            <section class="relative mx-auto ">
+                <!-- navbar -->
+                <nav class="flex justify-between text-white w-screen custom-nav">
+                    <div class="flex w-full items-center">
+                        <a href="#">
+                            <!-- <img class="h-9" src="logo.png" alt="logo"> -->
+                            <img class="h-28 ml-4" src="./assets/images/beatsandeatslogoResize.png"
+                                alt="Beats & Eats Logo" />
+                        </a>
+
+                        <ul class="md:flex px-4 mx-auto font-semibold font-heading space-x-12">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="https://open.spotify.com/" target="_blank">Spotify</a></li>
+                            <li><a href="https://www.google.com/maps" target="_blank">Google Maps</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </section>
+        </div> 
 
     </header>
 
     <main>
-        <div>
-            <div>
-                <h3>Search for a Music Type </h3>
-                <input type="text" placeholder="What would you like to listen to?" />
-                <button type="submit">Search</button>
-            </div>
+        <div class="grid grid-rows-3 grid-flow-col gap-4">
+            <div class="row-span-3">
+                <div class="mx-4 my-4">
+                    <h3 class="py-2">Search for a Music Type </h3>
+                    <input class="border border-style solid rounded-md" type="text" placeholder=" Music Type" />
+                    <button class="bg-black rounded-3xl px-4 py-1 mb-2 dark: text-white" type="submit">Search</button>
+                </div>
 
-            <div>
-                <h3>Search for Food</h3>
-                <input type="text" placeholder="What would you like to eat?" />
-                <button type="submit">Search</button>
-            </div>
-
-            <div>
-                <h2>Here Are Your Food Searches: </h2>
-                <div id="results-container">
-                    <!-- Placeholder for results  -->
+                <div class="mx-4 my-4">
+                    <h3 class="py-2">Search for Food</h3>
+                    <input class="border border-style solid rounded-md" type="text" placeholder=" Food Choice" />
+                    <button class="bg-black rounded-3xl px-4 py-1 mb-2 dark: text-white" type="submit">Search</button>
                 </div>
             </div>
 
-            <div>
+            <div class="col-span-2 mt-2 mb-2">
+                <h2>Here Is Your Food Search: </h2>
+                <div id="results-container">
+                    <!-- Placeholder for results  -->
+                    <img class="max-h-full max-w-4xl mt-4 mr-8 border" src="./assets/images/mapsfood.png" />
+                </div>
+            </div>
+
+            <div class="row-span-1">
                 <h2>Now Playing: </h2>
                 <div id="music-player">
                     <!-- Placeholder for music player -->
+                    <img class="max-w-4xl mt-4 mr-8 border" src="./assets/images/SPOTIFY_PLAYLIST.webp" />
                 </div>
             </div>
-
+        </div>
     </main>
 
-    <script src="./assets/js/script.js"></script>
+    <footer>
+        <p class="text-sm text-center sm:text-left mb-4 ml-4">© 2022 CODE BY A HUNGRY TEAM</p>
+    </footer>
+
+    <!-- <script src="./assets/js/script.js"></script> -->
 
 </body>
 
