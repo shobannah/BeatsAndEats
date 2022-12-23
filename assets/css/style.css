@@ -30,6 +30,10 @@
     filter: drop-shadow(1px 1px 2px var(--white));
 }
 
+.change-song:hover {
+    background-color: #1DB954 !important;
+}
+
 input {
     padding-left: 4px !important;
 }
