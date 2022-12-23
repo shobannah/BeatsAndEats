@@ -1,38 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300&display=swap');
 
 :root {
-    --red: #C8102E;
+    --red: #E02424;
     --black: #000;
     --white: #fff;
     --gray: #8A8D8F;
+    --lightred: #FDE8E8;
 }
 
 .custom-nav {
-    display: flex;
     background-color: var(--black) !important;
-    height: 150px;
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url(../images/headback.jpeg);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
     border-bottom: var(--black);
+    font-family: 'Unbounded', cursive;
 }
 
 .custom-nav img {
     filter: drop-shadow(1px 1px 4px var(--white));
 }
 
-.custom-nav li a {
-    transition: all 0.5s ease-in-out;
-    font-family: 'Unbounded', cursive;
-    font-size: 15pt !important;
+.custom-nav span {
+    filter: drop-shadow(1px 1px 4px var(--black));
 }
 
-.custom-nav li a:hover {
-    color: var(--black);
-    text-decoration: underline;
-    text-underline-offset: 8px;
-    text-decoration-color: var(--white);
+.spot {
+    filter: drop-shadow(1px 1px 2px var(--white));
+}
+
+.change-song:hover {
+    background-color: #1DB954 !important;
 }
 
 input {
@@ -46,7 +45,7 @@ input[type=text] {
 }
 
 input[type=text]:focus {
-    width: 60%;
+    width: 70%;
 }
 
 h3 {
