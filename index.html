@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
     <script src="https://kit.fontawesome.com/cea2165e68.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script> -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Beats & Eats</title>
 </head>
@@ -66,12 +68,10 @@
                         class="ml-4 mr-4 mb-4 mt-16 block max-w-full lg:mr-0 p-6 border border-emerald-900 rounded-lg shadow-md dark:bg-emerald-200">
                         <h2 class="pb-2 mb-2 text-2xl font-bold tracking-tight text-emerald-900">Now
                             Playing: </h2>
-                        <section id="music-player">
-                            <iframe style="border-radius:12px"
-                                src="https://open.spotify.com/embed/track/1IHWl5LamUGEuP4ozKQSXZ?utm_source=generator"
-                                width="100%" height="352" frameBorder="0" allowfullscreen=""
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                loading="lazy"></iframe>
+                        <section>
+                            <section id="music-player">
+
+                            </section>
 
                             <section class="flex items-center justify-between">
                                 <img class="h-9 mt-6 ml-2 spot" src="./assets/images/Spotify_Logo_CMYK_Green.png" />
@@ -102,4 +102,5 @@
 
     <!-- Script link to allow Tailwind to work properly -->
     <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+    <script src="./assets/js/script_spotify.js"></script>
 </body>
