@@ -66,7 +66,7 @@ $.ajax({
     'Authorization': "Bearer " + token
   },
   data: {
-    seed_genres: "alternative"
+    seed_genres: "alternative" // dynamic variable set by user input
   },
   contentType: "application/json",
   async: false,
