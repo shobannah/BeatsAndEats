@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
     <script src="https://kit.fontawesome.com/cea2165e68.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script> -->
@@ -14,73 +15,87 @@
 </head>
 
 <body>
-    <header>
-        <section class="flex flex-wrap place-items-center">
-            <section class="relative mx-auto ">
-                <!-- navbar -->
-                <nav class="flex justify-between text-white w-screen custom-nav">
-                    <section class="flex w-full items-center">
-                        <a href="#">
-                            <!-- <img class="h-9" src="logo.png" alt="logo"> -->
-                            <img class="h-28 ml-4" src="./assets/images/beatsandeatslogoResize.png"
-                                alt="Beats & Eats Logo" />
-                        </a>
+    <header
+        class="bg-gray-900 sm:justify-between sm:items-center sm:px-4 sm:py-3 custom-nav border border-red-600 rounded-lg shadow-md my-1 mx-1">
+        <nav class="flex items-center justify-between px-4 py-3 sm:p-0">
 
-                        <ul class="md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="https://open.spotify.com/" target="_blank">Spotify</a></li>
-                            <li><a href="https://www.google.com/maps" target="_blank">Google Maps</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                        </ul>
-                    </section>
-                </nav>
-            </section>
-        </section>
+            <div class="lg:flex items-center">
+                <img src="./assets/images/beatsandeatslogoNoWords.png" class="h-26 mr-3 sm:h-32"
+                    alt="Beats & Eats Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Beats & Eats</span>
+            </div>
 
+            <div class="block px-2 pt-2 pb-4 sm:flex">
+                <!-- Commented out links as per conversation. Leaving code if we want to revisit. -->
+                <!-- <a href="#" class="block px-2 py-1 text-white font-semibold rounded hover:bg-red-600"
+                    aria-current="page">Home</a>
+                <a href="https://open.spotify.com/"
+                    class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-red-600 sm:mt-0 sm:ml-2"
+                    target="_blank">Spotify</a>
+                <a href="https://www.google.com/maps"
+                    class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-red-600 sm:mt-0 sm:ml-2"
+                    target="_blank">Google
+                    Maps</a> -->
+                <a href="mailto:m.rivera310@outlook.com?subject=Beats and Eats Feedback"
+                    class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-red-600 sm:mt-0 sm:ml-2"
+                    target="_blank">Contact
+                    Us</a>
+            </div>
+
+        </nav>
     </header>
 
+
     <main>
-        <section class="grid grid-rows-3 grid-flow-col gap-4">
-            <section class="row-span-3">
-                <section id="musicSearch" class="mx-4 my-4">
-                    <h3 class="py-2">Search for a Music Type </h3>
-                    <input class="border border-style solid rounded-md" type="text" placeholder=" Music Type" />
-                    <button class="bg-black rounded-3xl px-4 py-1 mb-2 dark: text-white" type="submit"><i
-                            class="fa-solid fa-magnifying-glass"></i></button>
-                </section>
+        <section class="grid-cols-1 lg:grid grid-cols-4 gap-3">
+            <div>
+                <section>
+                    <section id="musicSearch" class="mx-4 my-4">
+                        <h3 class="py-2">Enter Music Genre </h3>
+                        <input class="border border-style solid rounded-md" type="text" placeholder=" Genre" />
+                        <button class="bg-black rounded-3xl px-4 py-1 mb-2 dark: text-white" type="submit"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </section>
 
-                <section id="foodSearch" class="mx-4 my-4">
-                    <h3 class="py-2">Search for Food</h3>
-                    <input class="border border-style solid rounded-md" type="text" placeholder=" Food Choice" />
-                    <button class="bg-black rounded-3xl px-4 py-1 mb-2 dark: text-white" type="submit"><i
-                            class="fa-solid fa-magnifying-glass"></i></button>
-                </section>
-            </section>
+                    <section id="foodSearch" class="mx-4 my-4">
+                        <h3 class="py-2">Search for Food</h3>
+                        <input class="border border-style solid rounded-md" type="text" placeholder=" Food Choice" />
+                        <button class="bg-black rounded-3xl px-4 py-1 mb-2 dark: text-white" type="submit"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </section>
 
-            <section class="col-span-2 mt-2 mb-2">
-                <h2>Here Is Your Food Search: </h2>
+                    <section id="nowPlaying"
+                        class="ml-4 mr-4 mb-4 mt-16 block max-w-full lg:mr-0 p-6 border border-emerald-900 rounded-lg shadow-md dark:bg-emerald-200">
+                        <h2 class="pb-2 mb-2 text-2xl font-bold tracking-tight text-emerald-900">Now
+                            Playing: </h2>
+                        <section id="music-player">
+                            <iframe style="border-radius:12px"
+                                src="https://open.spotify.com/embed/track/1IHWl5LamUGEuP4ozKQSXZ?utm_source=generator"
+                                width="100%" height="352" frameBorder="0" allowfullscreen=""
+                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                loading="lazy"></iframe>
+                            <img class="h-9 mt-6 ml-auto spot" src="./assets/images/Spotify_Logo_CMYK_Green.png" />
+                        </section>
+                    </section>
+            </div>
+
+            <div
+                class="col-span-1 ml-4 lg:col-span-3 my-4 mx-4 lg:ml-4 block p-6 bg-white border border-amber-400 rounded-lg shadow-md dark:bg-amber-50">
+                <h2 class="ml-4 mt-4 text-2xl font-bold tracking-tight">Here Is Your Food Search: </h2>
                 <section id="results-container">
                     <!-- Placeholder for results  -->
-                    <img class="max-h-full max-w-4xl mt-4 mr-8 border" src="./assets/images/mapsfood.png" />
+                    <img class="max-h-full max-w-full mr-2 ml-4 border sm:max-h-full sm:max-w-4xl sm:mt-4 sm:mr-8 sm:ml-4 sm:border"
+                        src="./assets/images/mapsfood.png" />
                 </section>
-            </section>
-
-            <section class="row-span-1">
-                <h2>Now Playing: </h2>
-                <section id="music-player">
-                    <!-- Placeholder for music player -->
-                </section>
-            </section>
+            </div>
         </section>
+
     </main>
 
-    <footer>
-        <p class="text-sm text-center sm:text-left mb-4 ml-4">© 2022 CODE BY A HUNGRY TEAM</p>
+    <footer class="mt-8">
+        <p class="text-sm text-left text-gray-300 mb-4 ml-4 mr-4">© 2022 CODE BY A HUNGRY TEAM</p>
     </footer>
 
-    <!-- <script src="./assets/js/script.js"></script> -->
-    <script src="./assets/js/script_spotify.js"></script>
-
+    <!-- Script link to allow Tailwind to work properly -->
+    <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
 </body>
-
-</html>
