@@ -1,11 +1,7 @@
-var client_id_key = '05757d0b060a45a58d9564f0534bbbd1';
-var client_secret_key = 'f4461ae240424201b6e5ac3ff19f48e6';
-var token;
-var tracks;
-var track_id;
-
 // Get Bearer Token
 function get_BearerToken(){
+  const client_id_key = '05757d0b060a45a58d9564f0534bbbd1';
+  const client_secret_key = 'f4461ae240424201b6e5ac3ff19f48e6';
   var bearerToken;
   $.ajax({
     type: "POST",
@@ -59,7 +55,8 @@ function get_genresArray(token){
 
 // Gets List of tracks based on selected genre
 function get_Tracks(token, genresArr){
-  var chosenGenre = getGenre(genresArr);
+  var chosenGenre = get_Genre(genresArr);
+  console.log("chosenGenre", chosenGenre);
   $.ajax({
     type: "GET",
     url: "https://api.spotify.com/v1/recommendations",
@@ -76,7 +73,7 @@ function get_Tracks(token, genresArr){
       console.log("GET TRACKS", response);
       tracks = response.tracks;
       console.log("TRACKS", tracks);
-      getTrackId(tracks);
+      get_TrackId(tracks);
     },
     error: function(response){
       console.log("error", response);
@@ -85,16 +82,33 @@ function get_Tracks(token, genresArr){
 }
 
 //choose a genre from user's input (randomly generates for now)
-function getGenre(genresArr){
+//genresArr param might not be necessary, was using it to randomly generate genres -- Hailey F.
+function get_Genre(genresArr){
+  var userInput = $("#musicSearch").children("input").val();
+  console.log("userInput", userInput);
   //TODO: get the user's input to choose a genre
     // I believe we were talking about using a dropdown menu on the HTML side? -- Hailey F.
-    // [code here]
+  
 
   //substitute: generates random genre
-  var randomNum = Math.floor(Math.random() * 126);
-  console.log("randomNum", randomNum);
-  console.log("genreChosen", genresArr.genres[randomNum]);
-  return genresArr.genres[randomNum];
+  // var randomNum = Math.floor(Math.random() * 126);
+  // console.log("randomNum", randomNum);
+  // console.log("genreChosen", genresArr.genres[randomNum]);
+  return userInput;
+}
+
+//gets trackID from chosen tracks array
+function get_TrackId(tracks) {
+  var randomNum = Math.floor(Math.random() * 20);
+  console.log(randomNum);
+  track_id = tracks[randomNum].id;
+  appendTrack(track_id);
+};
+
+// Creates iFrame element with dynamically selected track id
+function appendTrack(track_id){
+  var track_embed = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${track_id}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+  $("#music-player").append(track_embed);
 }
 
 // window.onSpotifyIframeApiReady = (IFrameAPI) => {
@@ -111,18 +125,12 @@ function getGenre(genresArr){
 //   IFrameAPI.createController(element, options, callback);
 // };
 
-//gets trackID from chosen tracks array
-function getTrackId(tracks) {
-  var randomNum = Math.floor(Math.random() * 20);
-  console.log(randomNum);
-  track_id = tracks[randomNum].id;
-};
+
+//EventListener for search music button
+$("#musicSearch").children("button").click(function(){
+  get_BearerToken();
+})
 
 
-get_BearerToken();
 
 
-// Creates iFrame element with dynamically selected track id
-var track_embed = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${track_id}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
-
-$("#music-player").append(track_embed);
