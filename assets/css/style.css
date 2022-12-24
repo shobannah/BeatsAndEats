@@ -61,3 +61,19 @@ button:hover {
     background-color: var(--red) !important;
 
 }
+
+
+/* Google Maps API specific styling */
+#map,
+#map-container {
+    height: 100% !important;
+    width: 100% !important;
+    /* position: absolute !important; */
+}
+
+html,
+body {
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}

@@ -55,7 +55,7 @@ $.ajax({
   error: function (response) {
     console.log(token);
     console.log(response);
-  } 
+  }
 });
 
 // Gets List of tracks based on selected genre
@@ -77,20 +77,6 @@ $.ajax({
     console.log(tracks);
   }
 });
-
-// window.onSpotifyIframeApiReady = (IFrameAPI) => {
-//   // 
-//   var randomNum = Math.floor(Math.random() * 20);
-//   console.log(randomNum);
-//   var track_selected = tracks[randomNum].uri;
-//   console.log(track_selected);
-//   let element = document.getElementById('embed-iframe');
-//   let options = {
-//       uri: track_selected
-//     };
-//   let callback = (EmbedController) => {};
-//   IFrameAPI.createController(element, options, callback);
-// };
 
 function getTrackId() {
   var randomNum = Math.floor(Math.random() * 20);
