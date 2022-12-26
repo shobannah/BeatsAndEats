@@ -1,4 +1,15 @@
-var curTrackList;
+/**
+ * To save time with the autocomplete function, I have
+ * refactored the code so that a token is generated on page
+ * refresh and saved, which will then be used in calls when searching for
+ * music.
+ * However, this may not be a good solution for security reasons. If we would rather
+ * save the array of 126 genres into an object manually instead of recieving them from the function call,
+ * let me know and we can discuss refactor.
+ * -- Hailey F, 12/26/22
+ */
+const TOKEN = get_BearerToken();
+var GENRES_ARR;
 
 // Get Bearer Token
 function get_BearerToken(){
@@ -22,8 +33,7 @@ function get_BearerToken(){
     success: function (response) {
       console.log(response);
       bearerToken = response.access_token;
-      console.log("bearerToken", bearerToken);
-      get_genresArray(bearerToken);     
+      GENRES_ARR = get_genresArray(bearerToken);  
     },
     error: function (response) {
       console.log("ERROR BEARERTOKEN", response);
@@ -46,12 +56,19 @@ function get_genresArray(token){
     success: function (response) {
       console.log("genreArray token", token);
       console.log("genreArray response", response);
-      get_Tracks(token, response);
+      GENRES_ARR = response.genres;
+      autoComplete();
     },
     error: function (response) {
       console.log("error", token);
       console.log("error", response);
     } 
+  });
+}
+
+function autoComplete(){
+  $("#musicSearch").children("input").autocomplete({
+    source: GENRES_ARR,
   });
 }
 
@@ -83,8 +100,7 @@ function get_Tracks(token, genresArr){
 }
 
 //choose a genre from user's input (randomly generates for now)
-//genresArr param might not be necessary, was using it to randomly generate genres -- Hailey F.
-function get_Genre(genresArr){
+function get_Genre(){
   var userInput = $("#musicSearch").children("input").val();
   console.log("userInput", userInput);
   //TODO: get the user's input to choose a genre
@@ -131,19 +147,13 @@ function appendTrack(track_id){
 
 //EventListener for search music button
 $("#musicSearch").children("button").click(function(){
-  get_BearerToken();
+  get_Tracks(TOKEN, GENRES_ARR);
 })
 
+
 //event listener for change track button
-/**
- * NOTE: currently this function just chooses a random number from the list of tracks from the previous search result.
- * This means that there's a chance that a previous song could play over again.
- * If we want to generate a list of new tracks every time from the same genre and do that, the get_Tracks function may have 
- * to be restructured.
- * -- Hailey F, 12/26/22
- */
 $("#changeTrack").click(function(){
-  get_TrackId(curTrackList);
+  get_Tracks(TOKEN,GENRES_ARR);
 })
 
 
