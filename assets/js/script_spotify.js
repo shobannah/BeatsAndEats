@@ -1,3 +1,5 @@
+var curTrackList;
+
 // Get Bearer Token
 function get_BearerToken(){
   const client_id_key = '05757d0b060a45a58d9564f0534bbbd1';
@@ -56,7 +58,6 @@ function get_genresArray(token){
 // Gets List of tracks based on selected genre
 function get_Tracks(token, genresArr){
   var chosenGenre = get_Genre(genresArr);
-  console.log("chosenGenre", chosenGenre);
   $.ajax({
     type: "GET",
     url: "https://api.spotify.com/v1/recommendations",
@@ -71,9 +72,9 @@ function get_Tracks(token, genresArr){
     dataType: "json",
     success: function (response) {
       console.log("GET TRACKS", response);
-      tracks = response.tracks;
-      console.log("TRACKS", tracks);
-      get_TrackId(tracks);
+      curTrackList = response.tracks;
+      console.log("TRACKS", curTrackList);
+      get_TrackId(curTrackList);
     },
     error: function(response){
       console.log("error", response);
@@ -97,6 +98,7 @@ function get_Genre(genresArr){
   return userInput;
 }
 
+
 //gets trackID from chosen tracks array
 function get_TrackId(tracks) {
   var randomNum = Math.floor(Math.random() * 20);
@@ -107,7 +109,8 @@ function get_TrackId(tracks) {
 
 // Creates iFrame element with dynamically selected track id
 function appendTrack(track_id){
-  var track_embed = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${track_id}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+  var track_embed = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${track_id}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+  $("#music-player").empty();
   $("#music-player").append(track_embed);
 }
 
@@ -129,6 +132,18 @@ function appendTrack(track_id){
 //EventListener for search music button
 $("#musicSearch").children("button").click(function(){
   get_BearerToken();
+})
+
+//event listener for change track button
+/**
+ * NOTE: currently this function just chooses a random number from the list of tracks from the previous search result.
+ * This means that there's a chance that a previous song could play over again.
+ * If we want to generate a list of new tracks every time from the same genre and do that, the get_Tracks function may have 
+ * to be restructured.
+ * -- Hailey F, 12/26/22
+ */
+$("#changeTrack").click(function(){
+  get_TrackId(curTrackList);
 })
 
 
