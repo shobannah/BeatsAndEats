@@ -33,7 +33,7 @@ function get_BearerToken(){
     success: function (response) {
       console.log(response);
       bearerToken = response.access_token;
-      GENRES_ARR = get_genresArray(bearerToken);  
+      GENRES_ARR = get_userInputsArray(bearerToken);  
     },
     error: function (response) {
       console.log("ERROR BEARERTOKEN", response);
@@ -43,7 +43,7 @@ function get_BearerToken(){
 }
 
 // Get Genres Array
-function get_genresArray(token){
+function get_userInputsArray(token){
   $.ajax({
     type: "GET",
     url: "https://api.spotify.com/v1/recommendations/available-genre-seeds",
@@ -74,7 +74,7 @@ function autoComplete(){
 
 // Gets List of tracks based on selected genre
 function get_Tracks(token, genresArr){
-  var chosenGenre = get_Genre(genresArr);
+  var chosenGenre = get_userInput(genresArr);
   $.ajax({
     type: "GET",
     url: "https://api.spotify.com/v1/recommendations",
@@ -99,18 +99,9 @@ function get_Tracks(token, genresArr){
   });
 }
 
-//choose a genre from user's input (randomly generates for now)
-function get_Genre(){
+//choose a genre from user's input
+function get_userInput(){
   var userInput = $("#musicSearch").children("input").val();
-  console.log("userInput", userInput);
-  //TODO: get the user's input to choose a genre
-    // I believe we were talking about using a dropdown menu on the HTML side? -- Hailey F.
-  
-
-  //substitute: generates random genre
-  // var randomNum = Math.floor(Math.random() * 126);
-  // console.log("randomNum", randomNum);
-  // console.log("genreChosen", genresArr.genres[randomNum]);
   return userInput;
 }
 
