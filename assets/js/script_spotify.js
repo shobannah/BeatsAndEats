@@ -142,7 +142,9 @@ $("#musicSearch").children("button").click(function(){
 })
 
 
-//event listener for change track button
+// event listener for change track button
+// currently does the same thing as the musicSearch button, getting the genre from whatever's
+// saved in the musicSearch tab
 $("#changeTrack").click(function(){
   get_Tracks(TOKEN,GENRES_ARR);
 })
