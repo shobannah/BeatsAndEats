@@ -1,82 +1,125 @@
 /**
- * TODO:
- * Need assistance to properly get API requests,
- * having trouble figuring out what to do
- * -- Hailey F 12/17/22
+ * To save time with the autocomplete function, I have
+ * refactored the code so that a token is generated on page
+ * refresh and saved, which will then be used in calls when searching for
+ * music.
+ * However, this may not be a good solution for security reasons. If we would rather
+ * save the array of 126 genres into an object manually instead of recieving them from the function call,
+ * let me know and we can discuss refactor.
+ * -- Hailey F, 12/26/22
  */
-
-var client_id_key = '05757d0b060a45a58d9564f0534bbbd1';
-var client_secret_key = 'f4461ae240424201b6e5ac3ff19f48e6';
-var token;
-var tracks;
-var track_id;
-
+const TOKEN = get_BearerToken();
+var GENRES_ARR;
 
 // Get Bearer Token
-$.ajax({
-  type: "POST",
-  url: "https://accounts.spotify.com/api/token",
-  // headers: { 
-  //   'Authorization': 'Basic ' + (client_id + ':' + client_secret).toString('base64')
-  // },
-  data: {
-    grant_type: 'client_credentials',
-    json: true,
-    client_id: client_id_key,
-    client_secret: client_secret_key
-  },
-  dataType: "json",
-  async: false,
-  success: function (response) {
-    console.log(response);
-    token = response.access_token;
-    console.log(token);
-    return token;
-  },
-  error: function (response) {
-    console.log(response);
-  }
-});
+function get_BearerToken(){
+  const client_id_key = '05757d0b060a45a58d9564f0534bbbd1';
+  const client_secret_key = 'f4461ae240424201b6e5ac3ff19f48e6';
+  var bearerToken;
+  $.ajax({
+    type: "POST",
+    url: "https://accounts.spotify.com/api/token",
+    // headers: { 
+    //   'Authorization': 'Basic ' + (client_id + ':' + client_secret).toString('base64')
+    // },
+    data: {
+      grant_type: 'client_credentials',
+      json: true,
+      client_id: client_id_key,
+      client_secret: client_secret_key
+    },
+    dataType: "json",
+    async: false,
+    success: function (response) {
+      console.log(response);
+      bearerToken = response.access_token;
+      GENRES_ARR = get_userInputsArray(bearerToken);  
+    },
+    error: function (response) {
+      console.log("ERROR BEARERTOKEN", response);
+    }
+  });
+  return bearerToken;
+}
 
 // Get Genres Array
-$.ajax({
-  type: "GET",
-  url: "https://api.spotify.com/v1/recommendations/available-genre-seeds",
-  headers: {
-    'Authorization': "Bearer " + token
-  },
-  contentType: "application/json",
-  async: false,
-  dataType: "json",
-  success: function (response) {
-    console.log(token);
-    console.log(response);
-  },
-  error: function (response) {
-    console.log(token);
-    console.log(response);
-  } 
-});
+function get_userInputsArray(token){
+  $.ajax({
+    type: "GET",
+    url: "https://api.spotify.com/v1/recommendations/available-genre-seeds",
+    headers: {
+      'Authorization': "Bearer " + token
+    },
+    contentType: "application/json",
+    async: false,
+    dataType: "json",
+    success: function (response) {
+      console.log("genreArray token", token);
+      console.log("genreArray response", response);
+      GENRES_ARR = response.genres;
+      autoComplete();
+    },
+    error: function (response) {
+      console.log("error", token);
+      console.log("error", response);
+    } 
+  });
+}
+
+function autoComplete(){
+  $("#musicSearch").children("input").autocomplete({
+    source: GENRES_ARR,
+  });
+}
 
 // Gets List of tracks based on selected genre
-$.ajax({
-  type: "GET",
-  url: "https://api.spotify.com/v1/recommendations",
-  headers: {
-    'Authorization': "Bearer " + token
-  },
-  data: {
-    seed_genres: "alternative" // dynamic variable set by user input
-  },
-  contentType: "application/json",
-  async: false,
-  dataType: "json",
-  success: function (response) {
-    console.log(response);
-    tracks = response.tracks;
-    console.log(tracks);
-  }
-});
+function get_Tracks(token, genresArr){
+  var chosenGenre = get_userInput(genresArr);
+  $.ajax({
+    type: "GET",
+    url: "https://api.spotify.com/v1/recommendations",
+    headers: {
+      'Authorization': "Bearer " + token
+    },
+    data: {
+      seed_genres: chosenGenre // dynamic variable set by user input
+    },
+    contentType: "application/json",
+    async: false,
+    dataType: "json",
+    success: function (response) {
+      console.log("GET TRACKS", response);
+      curTrackList = response.tracks;
+      console.log("TRACKS", curTrackList);
+      get_TrackId(curTrackList);
+    },
+    error: function(response){
+      console.log("error", response);
+    }
+  });
+}
+
+//choose a genre from user's input
+function get_userInput(){
+  var userInput = $("#musicSearch").children("input").val();
+  return userInput;
+}
+
+
+//gets trackID from chosen tracks array
+function get_TrackId(tracks) {
+  var randomNum = Math.floor(Math.random() * 20);
+  console.log(randomNum);
+  track_id = tracks[randomNum].id;
+  appendTrack(track_id);
+};
+
+// Creates iFrame element with dynamically selected track id
+function appendTrack(track_id){
+  var track_embed = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${track_id}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+  $("#music-player").empty();
+  $("#music-player").append(track_embed);
+}
 
 // window.onSpotifyIframeApiReady = (IFrameAPI) => {
 //   // 
@@ -92,15 +135,20 @@ $.ajax({
 //   IFrameAPI.createController(element, options, callback);
 // };
 
-function getTrackId() {
-  var randomNum = Math.floor(Math.random() * 20);
-  console.log(randomNum);
-  track_id = tracks[randomNum].id;
-};
 
-getTrackId();
+//EventListener for search music button
+$("#musicSearch").children("button").click(function(){
+  get_Tracks(TOKEN, GENRES_ARR);
+})
 
-// Creates iFrame element with dynamically selected track id
-var track_embed = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${track_id}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
 
-$("#music-player").append(track_embed);
+// event listener for change track button
+// currently does the same thing as the musicSearch button, getting the genre from whatever's
+// saved in the musicSearch tab
+$("#changeTrack").click(function(){
+  get_Tracks(TOKEN,GENRES_ARR);
+})
+
+
+
+
