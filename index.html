@@ -8,9 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
     <script src="https://kit.fontawesome.com/cea2165e68.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"
-        integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script> -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Beats & Eats</title>
@@ -70,6 +69,7 @@
                         class="ml-4 mr-4 mb-4 mt-16 block max-w-full lg:mr-0 p-6 border border-emerald-900 rounded-lg shadow-md dark:bg-emerald-200">
                         <h2 class="pb-2 mb-2 text-2xl font-bold tracking-tight text-emerald-900">Now
                             Playing: </h2>
+                        <div id="curGenre"></div>
                         <section>
                             <section id="music-player">
 
