@@ -88,11 +88,12 @@
             <div
                 class="col-span-1 ml-4 lg:col-span-3 my-4 mx-4 lg:ml-4 block p-6 bg-white border border-amber-400 rounded-lg shadow-md dark:bg-amber-50">
                 <h2 class="ml-4 mt-4 text-2xl font-bold tracking-tight">Here Is Your Food Search: </h2>
-                <section id="results-container">
-                    <!-- Placeholder for results  -->
-                    <img class="max-h-full max-w-full mr-2 ml-4 border sm:max-h-full sm:max-w-4xl sm:mt-4 sm:mr-8 sm:ml-4 sm:border"
-                        src="./assets/images/mapsfood.png" />
-                </section>
+                <div id="map"></div>
+                <!-- <section id="sidebar">
+                        <h2>Results</h2>
+                        <ul id="places"></ul>
+                        <button id="more">Load more results</button>
+                    </section> -->
             </div>
         </section>
 
@@ -104,5 +105,18 @@
 
     <!-- Script link to allow Tailwind to work properly -->
     <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+
+    <!-- Google Maps Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"
+        integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiUCdcx5b1mrgCunC1aTK6gC-tYGNTjWc&libraries=places&callback=initialize">
+        </script>
+    <script src="./assets/js/google_maps_script.js">
+    </script>
+
+    <!-- Spotify Script -->
     <script src="./assets/js/script_spotify.js"></script>
 </body>
