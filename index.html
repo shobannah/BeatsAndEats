@@ -10,7 +10,6 @@
     <script src="https://kit.fontawesome.com/cea2165e68.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script> -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Beats & Eats</title>
 </head>
@@ -60,8 +59,8 @@
 
                     <section id="foodSearch" class="mx-4 my-4">
                         <h3 class="py-2">Search for Food</h3>
-                        <input class="border border-style solid rounded-md" type="text" placeholder=" Food Choice" />
-                        <button class="bg-black rounded-3xl px-4 py-1 mb-2 dark: text-white" type="submit"><i
+                        <input class="border border-style solid rounded-md" type="text" placeholder=" Food Choice" id="foodSearchInput" />
+                        <button class="bg-black rounded-3xl px-4 py-1 mb-2 dark: text-white" type="submit" id="foodSearchBtn"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
                     </section>
 
@@ -89,12 +88,8 @@
                 class="col-span-1 ml-4 lg:col-span-3 my-4 mx-4 lg:ml-4 block p-6 bg-white border border-amber-400 rounded-lg shadow-md dark:bg-amber-50">
                 <h2 class="ml-4 mt-4 text-2xl font-bold tracking-tight">Here Is Your Food Search: </h2>
                 <div id="map"></div>
-                <!-- <section id="sidebar">
-                        <h2>Results</h2>
-                        <ul id="places"></ul>
-                        <button id="more">Load more results</button>
-                    </section> -->
             </div>
+
         </section>
 
     </main>
@@ -107,10 +102,6 @@
     <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
 
     <!-- Google Maps Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"
-        integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiUCdcx5b1mrgCunC1aTK6gC-tYGNTjWc&libraries=places&callback=initialize">
         </script>
