@@ -77,3 +77,8 @@ body {
     margin: 0 !important;
     padding: 0 !important;
 }
+
+/* hiding UI helper */
+.ui-helper-hidden-accessible{
+    display: none;
+}
