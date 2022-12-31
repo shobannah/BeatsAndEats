@@ -77,3 +77,7 @@ body {
     margin: 0 !important;
     padding: 0 !important;
 }
+
+.ui-helper-hidden-accessible{
+    display: none;
+}
