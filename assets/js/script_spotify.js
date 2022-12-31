@@ -13,7 +13,7 @@ var GENRES_ARR;
 var curGenre;
 
 // Get Bearer Token
-function get_BearerToken(){
+function get_BearerToken() {
   const client_id_key = '05757d0b060a45a58d9564f0534bbbd1';
   const client_secret_key = 'f4461ae240424201b6e5ac3ff19f48e6';
   var bearerToken;
@@ -34,7 +34,7 @@ function get_BearerToken(){
     success: function (response) {
       console.log(response);
       bearerToken = response.access_token;
-      GENRES_ARR = get_userInputsArray(bearerToken);  
+      GENRES_ARR = get_userInputsArray(bearerToken);
     },
     error: function (response) {
       console.log("ERROR BEARERTOKEN", response);
@@ -44,7 +44,7 @@ function get_BearerToken(){
 }
 
 // Get Genres Array
-function get_userInputsArray(token){
+function get_userInputsArray(token) {
   $.ajax({
     type: "GET",
     url: "https://api.spotify.com/v1/recommendations/available-genre-seeds",
@@ -63,19 +63,19 @@ function get_userInputsArray(token){
     error: function (response) {
       console.log("error", token);
       console.log("error", response);
-    } 
+    }
   });
 }
 
 //autocomplete for the music search bar
-function autoComplete(){
+function autoComplete() {
   $("#musicSearch").children("input").autocomplete({
     source: GENRES_ARR,
   });
 }
 
 // Gets List of tracks based on selected genre
-function get_Tracks(token, genresArr){
+function get_Tracks(token, genresArr) {
   var chosenGenre = get_userInput(genresArr);
   $.ajax({
     type: "GET",
@@ -95,14 +95,14 @@ function get_Tracks(token, genresArr){
       console.log("TRACKS", curTrackList);
       get_TrackId(curTrackList);
     },
-    error: function(response){
+    error: function (response) {
       console.log("error", response);
     }
   });
 }
 
 //seperate call for ensuring same genre from prev search
-function new_Track(token){
+function new_Track(token) {
   $.ajax({
     type: "GET",
     url: "https://api.spotify.com/v1/recommendations",
@@ -121,14 +121,14 @@ function new_Track(token){
       console.log("TRACKS", curTrackList);
       get_TrackId(curTrackList);
     },
-    error: function(response){
+    error: function (response) {
       console.log("error", response);
     }
   });
 }
 
 //choose a genre from user's input
-function get_userInput(){
+function get_userInput() {
   var userInput = $("#musicSearch").children("input").val();
   curGenre = userInput;
   return userInput;
@@ -144,10 +144,10 @@ function get_TrackId(tracks) {
 };
 
 // Creates iFrame element with dynamically selected track id
-function appendTrack(track_id){
+function appendTrack(track_id) {
   var track_embed = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${track_id}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
   $("#music-player").empty();
-  $("#curGenre").text("Current Genre: " + curGenre);
+  $("#curGenre").text( /**"Current Genre: " + */ curGenre);
   $("#music-player").append(track_embed);
 }
 
@@ -167,7 +167,7 @@ function appendTrack(track_id){
 
 
 //EventListener for search music button
-$("#musicSearch").children("button").click(function(){
+$("#musicSearch").children("button").click(function () {
   get_Tracks(TOKEN, GENRES_ARR);
 })
 
@@ -175,7 +175,7 @@ $("#musicSearch").children("button").click(function(){
 // event listener for change track button
 // currently does the same thing as the musicSearch button, getting the genre from whatever's
 // saved in the musicSearch tab
-$("#changeTrack").click(function(){
+$("#changeTrack").click(function () {
   new_Track(token);
 })
 
