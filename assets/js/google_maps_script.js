@@ -4,6 +4,8 @@ var map;
 var service;
 var infoWindow;
 var currentPlace;
+var searchInput = "places to study"
+var markers = [];
 
 function initialize() {
 
@@ -29,7 +31,7 @@ function initialize() {
           currentPlace = pos;
           console.log(currentPlace);
           map.setCenter(pos);
-          searchStudyPlaces();
+          searchStudyPlaces(searchInput);
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -44,12 +46,12 @@ function initialize() {
 
   getCurrentLocation();
 
-  function searchStudyPlaces() {
+  function searchStudyPlaces(input) {
     console.log(currentPlace);
     var request = {
       location: currentPlace,
       radius: '1200',
-      query: 'places to study'
+      query: input
     };
 
     function createMarker(place) {
@@ -64,14 +66,24 @@ function initialize() {
     function callback(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
-          var place = results[i];
-          createMarker(results[i]);
+          markers.push(results[i]);
         }
+        markers.forEach(element => {
+          createMarker(element);
+          
+        });
       }
     }
 
     service = new google.maps.places.PlacesService(map);
     service.textSearch(request, callback);
   }
+
+  $("#foodSearchBtn").click(function (e) { 
+    e.preventDefault();
+    searchInput = $("#foodSearchInput").val();
+    console.log(searchInput);
+    searchStudyPlaces(searchInput);
+  });
 
 };
