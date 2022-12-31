@@ -176,7 +176,7 @@ $("#musicSearch").children("button").click(function(){
 // currently does the same thing as the musicSearch button, getting the genre from whatever's
 // saved in the musicSearch tab
 $("#changeTrack").click(function(){
-  new_Track(token);
+  new_Track(TOKEN);
 })
 
 
