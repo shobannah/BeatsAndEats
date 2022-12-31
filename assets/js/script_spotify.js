@@ -10,6 +10,7 @@
  */
 const TOKEN = get_BearerToken();
 var GENRES_ARR;
+var curGenre;
 
 // Get Bearer Token
 function get_BearerToken(){
@@ -66,6 +67,7 @@ function get_userInputsArray(token){
   });
 }
 
+//autocomplete for the music search bar
 function autoComplete(){
   $("#musicSearch").children("input").autocomplete({
     source: GENRES_ARR,
@@ -99,9 +101,36 @@ function get_Tracks(token, genresArr){
   });
 }
 
+//seperate call for ensuring same genre from prev search
+function new_Track(token){
+  $.ajax({
+    type: "GET",
+    url: "https://api.spotify.com/v1/recommendations",
+    headers: {
+      'Authorization': "Bearer " + token
+    },
+    data: {
+      seed_genres: curGenre // from saved genre
+    },
+    contentType: "application/json",
+    async: false,
+    dataType: "json",
+    success: function (response) {
+      console.log("GET TRACKS", response);
+      curTrackList = response.tracks;
+      console.log("TRACKS", curTrackList);
+      get_TrackId(curTrackList);
+    },
+    error: function(response){
+      console.log("error", response);
+    }
+  });
+}
+
 //choose a genre from user's input
 function get_userInput(){
   var userInput = $("#musicSearch").children("input").val();
+  curGenre = userInput;
   return userInput;
 }
 
@@ -118,6 +147,7 @@ function get_TrackId(tracks) {
 function appendTrack(track_id){
   var track_embed = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${track_id}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
   $("#music-player").empty();
+  $("#curGenre").text("Current Genre: " + curGenre);
   $("#music-player").append(track_embed);
 }
 
@@ -146,9 +176,7 @@ $("#musicSearch").children("button").click(function(){
 // currently does the same thing as the musicSearch button, getting the genre from whatever's
 // saved in the musicSearch tab
 $("#changeTrack").click(function(){
-  get_Tracks(TOKEN,GENRES_ARR);
+  new_Track(token);
 })
-
-
 
 
