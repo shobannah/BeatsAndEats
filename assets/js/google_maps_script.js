@@ -54,28 +54,39 @@ function initialize() {
       query: input
     };
 
-    function createMarker(place) {
-      console.log(place.name);
-      new google.maps.Marker({
-        tile: place.name,
-        position: place.geometry.location,
-        map: map
+    function setMapOnAll(map) {
+      console.log(markers);
+      markers.forEach(element => {
+        element.setMap(map);
       });
+
     }
 
+    function addMarker(result) {
+      const marker = new google.maps.Marker({
+        position: result.geometry.location,
+        map,
+      });
+    
+      markers.push(marker);
+    }
+
+    function deleteMarkers() {
+      setMapOnAll(null);
+      markers = [];
+    }
 
     function callback(results, status) {
+      deleteMarkers();
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         console.log(results);
         for (var i = 0; i < results.length; i++) {
-          markers.push(results[i]);
+          addMarker(results[i]);
         }
-        markers.forEach(element => {
-          createMarker(element);
-          
-        });
+        setMapOnAll(map);
       }
     }
+
 
     service = new google.maps.places.PlacesService(map);
     service.textSearch(request, callback);
