@@ -87,15 +87,11 @@ function initialize() {
       '<div id="bodyContent">' +
       "<a href=" +
       `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${passResult.place_id}` +
-      " style='color:blue text-decoration:underline'>" +
-      "<h1 >" +
-      passResult.name;
+      ' style="color:blue; text-decoration:underline">' +
+      "<h1>" +
+      passResult.name; +
       "</h1>" + 
       "</a>" +
-      "<br></br>" +
-      "<p>"+
-      `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${passResult.place_id}` +
-      "</p>"+
       "</div>";
       var infoWindow = new google.maps.InfoWindow({
         content: contentString,
