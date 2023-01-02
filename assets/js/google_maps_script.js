@@ -13,7 +13,7 @@ function initialize() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: currentPlace,
-    zoom: 15
+    zoom: 10
   });
 
   infoWindow = new google.maps.InfoWindow();
@@ -69,11 +69,43 @@ function initialize() {
       });
     
       markers.push(marker);
+      setInfoWindow(marker, result);
     }
 
     function deleteMarkers() {
       setMapOnAll(null);
       markers = [];
+    }
+
+    function setInfoWindow(passMarker, passResult) {
+      let encodedName = encodeURI(passResult.name);
+      var contentString = 
+      '<div id="content">' +
+      '<h1 id="firstHeading" class="firstHeading" style="font-size:14px">' + 
+      "<b>Navigate to:</b>" +
+      '</h1>' +
+      '<div id="bodyContent">' +
+      "<a href=" +
+      `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${passResult.place_id}` +
+      " style='color:blue text-decoration:underline'>" +
+      "<h1 >" +
+      passResult.name;
+      "</h1>" + 
+      "</a>" +
+      "<br></br>" +
+      "<p>"+
+      `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${passResult.place_id}` +
+      "</p>"+
+      "</div>";
+      var infoWindow = new google.maps.InfoWindow({
+        content: contentString,
+      });
+      passMarker.addListener("click", () => {
+        infoWindow.open({
+          anchor: passMarker,
+          map,
+        });
+      });
     }
 
     function callback(results, status) {
@@ -90,7 +122,8 @@ function initialize() {
 
     service = new google.maps.places.PlacesService(map);
     service.textSearch(request, callback);
-  }
+
+   }
 
   $("#foodSearchBtn").click(function (e) { 
     e.preventDefault();
@@ -98,5 +131,7 @@ function initialize() {
     console.log(searchInput);
     searchStudyPlaces(searchInput);
   });
+
+  
 
 };
