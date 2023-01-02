@@ -31,6 +31,19 @@ function initialize() {
           currentPlace = pos;
           console.log(currentPlace);
           map.setCenter(pos);
+          const infoWindow = new google.maps.InfoWindow({
+            content: "Current Location",
+          });
+          const marker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            icon: {                             
+              url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
+          });
+          infoWindow.open({
+            anchor: marker,
+            map,
+          });
           searchStudyPlaces(searchInput);
         },
         () => {
