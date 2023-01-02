@@ -104,6 +104,22 @@ function initialize() {
       });
     }
 
+    // Function recives arguments from callback function to set title and list of results on webpage
+    function listMapResults(passResults) {
+      var mapResultsList =  $("#mapResultsList");
+      mapResultsList.empty();
+      $("#resultsTitle").html(`Currently showing results for ${searchInput}:`);
+      for (let i = 0; i < passResults.length; i++) {
+        var placeName = passResults[i].name;
+        let encodedName = encodeURI(passResults[i].name);
+        var placeURL = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${passResults[i].place_id}`
+        var placeAnchorEl = $("<a>").attr("href", placeURL)
+        var placeliEl = $("<li>").html(`${placeName} (${placeURL})`);
+        placeAnchorEl.append(placeliEl);
+        mapResultsList.append(placeAnchorEl);
+      }
+    }
+
     function callback(results, status) {
       deleteMarkers();
       if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -112,6 +128,7 @@ function initialize() {
           addMarker(results[i]);
         }
         setMapOnAll(map);
+        listMapResults(results);
       }
     }
 
