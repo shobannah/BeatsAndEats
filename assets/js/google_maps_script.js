@@ -7,13 +7,15 @@ var currentPlace;
 var searchInput = "places to study"
 var markers = [];
 
+
+// Google Maps API map initialization
 function initialize() {
 
   currentPlace = { lat: 28.5384, lng: -81.3789 };
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: currentPlace,
-    zoom: 10
+    zoom: 12
   });
 
   infoWindow = new google.maps.InfoWindow();
@@ -59,6 +61,7 @@ function initialize() {
 
   getCurrentLocation();
 
+  // Called after getCurrentLocation and by Event Listener to display map markers and results
   function searchStudyPlaces(input) {
     console.log(currentPlace);
     var request = {
@@ -67,6 +70,7 @@ function initialize() {
       query: input
     };
 
+    // Used to set and unset all markers on the map
     function setMapOnAll(map) {
       console.log(markers);
       markers.forEach(element => {
@@ -90,6 +94,7 @@ function initialize() {
       markers = [];
     }
 
+    // Creates and sets infoWindows for all markers
     function setInfoWindow(passMarker, passResult) {
       let encodedName = encodeURI(passResult.name);
       var contentString = 
@@ -127,12 +132,13 @@ function initialize() {
         let encodedName = encodeURI(passResults[i].name);
         var placeURL = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${passResults[i].place_id}`
         var placeAnchorEl = $("<a>").attr("href", placeURL).attr("target", "_blank");
-        var placeliEl = $("<li>").html(`${placeName} (${placeURL})`);
+        var placeliEl = $("<li>").html(`${placeName}`);
         placeAnchorEl.append(placeliEl);
         mapResultsList.append(placeAnchorEl);
       }
     }
 
+    // Called by textSearch service function to retrive user results
     function callback(results, status) {
       deleteMarkers();
       if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -145,7 +151,7 @@ function initialize() {
       }
     }
 
-
+    // Google Map API Places service declaration and textSearch function
     service = new google.maps.places.PlacesService(map);
     service.textSearch(request, callback);
 
@@ -159,6 +165,8 @@ function initialize() {
     searchStudyPlaces(searchInput);
   });
 
+
+  // DOM listener to ensure map resize
   google.maps.event.addDomListener(window, "resize", function() {
     var center = map.getCenter();
     google.maps.event.trigger(map, "resize");
