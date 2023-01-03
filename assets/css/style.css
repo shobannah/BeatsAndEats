@@ -8,6 +8,31 @@
     --lightred: #FDE8E8;
 }
 
+/* added below code to format autocomplete*/
+.ui-autocomplete {
+    background: var(--red);
+    color: #fff;
+    text-transform: capitalize;
+    border-radius: 5px;
+    max-width: 250px;
+    padding-left: 20px;
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active {
+    font-weight: bold !important;
+    color: var(--lightred) !important;
+    cursor: pointer;
+}
+
+/*added below to capitalize input, added customInput class to inputs */
+.customInput {
+    text-transform: capitalize;
+}
+
 .custom-nav {
     background-color: var(--black) !important;
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url(../images/headback.jpeg);
@@ -64,11 +89,39 @@ button:hover {
 
 
 /* Google Maps API specific styling */
-#map,
-#map-container {
+#map {
     height: 100% !important;
     width: 100% !important;
     /* position: absolute !important; */
+}
+
+#mapContain {
+    max-height: 100% !important;
+    max-width: 100% !important;
+    /* position: absolute !important; */
+}
+
+#mapCanvas {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+#resultsTitle {
+    color: darkblue;
+    padding-bottom: 5px;
+}
+
+#mapResultsList a {
+    font-size: larger;
+    color: var(--black);
+}
+
+#mapResultsList a:hover {
+    font-weight: bold;
+}
+
+#mapResultsList a:visited {
+    color: var(--gray);
 }
 
 html,
@@ -79,6 +132,6 @@ body {
 }
 
 /* hiding UI helper */
-.ui-helper-hidden-accessible{
+.ui-helper-hidden-accessible {
     display: none;
 }
