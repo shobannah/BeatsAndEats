@@ -169,7 +169,7 @@ function appendTrack(track_id) {
 //EventListener for search music button
 $("#musicSearch").children("button").click(function () {
   var input = $("#musicSearch").children("input").val();
-  if((GENRES_ARR.includes(input))){
+  if ((GENRES_ARR.includes(input))) {
     //get song
     get_Tracks(TOKEN, GENRES_ARR);
 
@@ -177,11 +177,12 @@ $("#musicSearch").children("button").click(function () {
     $(`#nowPlaying`).removeClass(`invisible`);
     $(`#mapContain`).removeClass(`invisible`);
     $(`#foodSearch`).removeClass(`invisible`);
+    $(`#listResults`).removeClass(`invisible`);
 
-  }else{
+  } else {
     alert("The genre you entered is invalid. Please choose a genre as suggested by the auto-complete dropdown menu, which displays while you type.");
   }
-  
+
 })
 
 
