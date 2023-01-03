@@ -21,7 +21,6 @@ function initialize() {
   infoWindow = new google.maps.InfoWindow();
 
   function getCurrentLocation() {
-    console.log("Getting current location");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -31,7 +30,6 @@ function initialize() {
           };
 
           currentPlace = pos;
-          console.log(currentPlace);
           map.setCenter(pos);
           const infoWindow = new google.maps.InfoWindow({
             content: "Current Location",
@@ -72,7 +70,6 @@ function initialize() {
 
     // Used to set and unset all markers on the map
     function setMapOnAll(map) {
-      console.log(markers);
       markers.forEach(element => {
         element.setMap(map);
       });
@@ -142,7 +139,6 @@ function initialize() {
     function callback(results, status) {
       deleteMarkers();
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log(results);
         for (var i = 0; i < results.length; i++) {
           addMarker(results[i]);
         }
@@ -161,7 +157,6 @@ function initialize() {
   $("#foodSearchBtn").click(function (e) { 
     e.preventDefault();
     searchInput = $("#foodSearchInput").val();
-    console.log(searchInput);
     searchStudyPlaces(searchInput);
   });
 
