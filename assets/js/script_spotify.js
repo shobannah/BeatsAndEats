@@ -34,7 +34,7 @@ function get_BearerToken() {
     success: function (response) {
       console.log(response);
       bearerToken = response.access_token;
-      GENRES_ARR = get_userInputsArray(bearerToken);
+      get_userInputsArray(bearerToken);
     },
     error: function (response) {
       console.log("ERROR BEARERTOKEN", response);
@@ -168,14 +168,25 @@ function appendTrack(track_id) {
 
 //EventListener for search music button
 $("#musicSearch").children("button").click(function () {
-  get_Tracks(TOKEN, GENRES_ARR);
+  var input = $("#musicSearch").children("input").val();
+  if((GENRES_ARR.includes(input))){
+    //get song
+    get_Tracks(TOKEN, GENRES_ARR);
+
+    // show player on screen -- Manny
+    $(`#nowPlaying`).removeClass(`invisible`);
+    $(`#mapContain`).removeClass(`invisible`);
+    $(`#foodSearch`).removeClass(`invisible`);
+
+  }else{
+    alert("The genre you entered is invalid. Please choose a genre as suggested by the auto-complete dropdown menu, which displays while you type.");
+  }
+  
 })
 
 
 // event listener for change track button
-// currently does the same thing as the musicSearch button, getting the genre from whatever's
-// saved in the musicSearch tab
-$("#changeTrack").click(function(){
+$("#changeTrack").click(function () {
   new_Track(TOKEN);
 })
 
