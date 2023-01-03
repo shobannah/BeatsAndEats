@@ -1,6 +1,6 @@
 # BeatsAndEats
 
-Created and coded by "Group 1 is Hungry"
+Created and coded by "A Hungry Team"
 
 ## Description
 
@@ -8,11 +8,12 @@ Have you ever needed a pick me up during, before or after studying for your clas
 
 ## Screenshot
 
-![Screenshot of finished product]()
+![image](https://user-images.githubusercontent.com/116910257/210293037-ab921c28-a220-4572-b8be-7c3324d4c3b5.png)
+
 
 ## Link to Deployed Application
 
-<placeholder>
+https://shobannah.github.io/BeatsAndEats
 
 ## Credits
 
