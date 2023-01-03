@@ -1,13 +1,3 @@
-/**
- * To save time with the autocomplete function, I have
- * refactored the code so that a token is generated on page
- * refresh and saved, which will then be used in calls when searching for
- * music.
- * However, this may not be a good solution for security reasons. If we would rather
- * save the array of 126 genres into an object manually instead of recieving them from the function call,
- * let me know and we can discuss refactor.
- * -- Hailey F, 12/26/22
- */
 const TOKEN = get_BearerToken();
 var GENRES_ARR;
 var curGenre;
@@ -32,7 +22,6 @@ function get_BearerToken() {
     dataType: "json",
     async: false,
     success: function (response) {
-      console.log(response);
       bearerToken = response.access_token;
       get_userInputsArray(bearerToken);
     },
@@ -61,8 +50,8 @@ function get_userInputsArray(token) {
       autoComplete();
     },
     error: function (response) {
-      console.log("error", token);
-      console.log("error", response);
+      console.log("ERROR TOKEN (getUserInput)", token);
+      console.log("ERROR RESPONSE (getUserInput)", response);
     }
   });
 }
@@ -90,13 +79,11 @@ function get_Tracks(token, genresArr) {
     async: false,
     dataType: "json",
     success: function (response) {
-      console.log("GET TRACKS", response);
       curTrackList = response.tracks;
-      console.log("TRACKS", curTrackList);
       get_TrackId(curTrackList);
     },
     error: function (response) {
-      console.log("error", response);
+      console.log("ERROR RESPONSE (getTracks)", response);
     }
   });
 }
@@ -116,13 +103,11 @@ function new_Track(token) {
     async: false,
     dataType: "json",
     success: function (response) {
-      console.log("GET TRACKS", response);
       curTrackList = response.tracks;
-      console.log("TRACKS", curTrackList);
       get_TrackId(curTrackList);
     },
     error: function (response) {
-      console.log("error", response);
+      console.log("ERROR RESPONSE (newTrack)", response);
     }
   });
 }
@@ -138,7 +123,6 @@ function get_userInput() {
 //gets trackID from chosen tracks array
 function get_TrackId(tracks) {
   var randomNum = Math.floor(Math.random() * 20);
-  console.log(randomNum);
   track_id = tracks[randomNum].id;
   appendTrack(track_id);
 };
@@ -151,25 +135,10 @@ function appendTrack(track_id) {
   $("#music-player").append(track_embed);
 }
 
-// window.onSpotifyIframeApiReady = (IFrameAPI) => {
-//   // 
-//   var randomNum = Math.floor(Math.random() * 20);
-//   console.log(randomNum);
-//   var track_selected = tracks[randomNum].uri;
-//   console.log(track_selected);
-//   let element = document.getElementById('embed-iframe');
-//   let options = {
-//       uri: track_selected
-//     };
-//   let callback = (EmbedController) => {};
-//   IFrameAPI.createController(element, options, callback);
-// };
-
-
 //EventListener for search music button
 $("#musicSearch").children("button").click(function () {
   var input = $("#musicSearch").children("input").val();
-  if((GENRES_ARR.includes(input))){
+  if ((GENRES_ARR.includes(input))) {
     //get song
     get_Tracks(TOKEN, GENRES_ARR);
 
@@ -177,11 +146,12 @@ $("#musicSearch").children("button").click(function () {
     $(`#nowPlaying`).removeClass(`invisible`);
     $(`#mapContain`).removeClass(`invisible`);
     $(`#foodSearch`).removeClass(`invisible`);
+    $(`#listResults`).removeClass(`invisible`);
 
-  }else{
+  } else {
     alert("The genre you entered is invalid. Please choose a genre as suggested by the auto-complete dropdown menu, which displays while you type.");
   }
-  
+
 })
 
 
@@ -189,5 +159,7 @@ $("#musicSearch").children("button").click(function () {
 $("#changeTrack").click(function () {
   new_Track(TOKEN);
 })
+
+
 
 
