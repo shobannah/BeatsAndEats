@@ -110,6 +110,7 @@ button:hover {
     font-size: 12pt !important;
     color: #233876;
     padding-bottom: 5px;
+    text-transform: capitalize;
 }
 
 #mapResultsList a {
