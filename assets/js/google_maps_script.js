@@ -126,7 +126,7 @@ function initialize() {
         var placeName = passResults[i].name;
         let encodedName = encodeURI(passResults[i].name);
         var placeURL = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${passResults[i].place_id}`
-        var placeAnchorEl = $("<a>").attr("href", placeURL)
+        var placeAnchorEl = $("<a>").attr("href", placeURL).attr("target", "_blank");
         var placeliEl = $("<li>").html(`${placeName} (${placeURL})`);
         placeAnchorEl.append(placeliEl);
         mapResultsList.append(placeAnchorEl);
@@ -150,7 +150,8 @@ function initialize() {
     service.textSearch(request, callback);
 
    }
-
+  
+   // Event listener to trigger food search based on user input
   $("#foodSearchBtn").click(function (e) { 
     e.preventDefault();
     searchInput = $("#foodSearchInput").val();
@@ -158,6 +159,10 @@ function initialize() {
     searchStudyPlaces(searchInput);
   });
 
-  
+  google.maps.event.addDomListener(window, "resize", function() {
+    var center = map.getCenter();
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(center); 
+  });
 
 };
